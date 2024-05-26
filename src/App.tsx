@@ -1,26 +1,75 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider, AuthConsumer } from './contexts/jwt-context';
+import { SplashScreen } from './components/SplashScreen';
+import Routes from './Routes';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    return (
+        <AuthProvider>
+            <AuthConsumer>
+                {(auth) => {
+                    const showSplashScreen = !auth.isInitialized;
+
+                    return showSplashScreen ? <SplashScreen /> : (
+                        <BrowserRouter>
+                            <Routes />
+                        </BrowserRouter>
+                    );
+                }}
+            </AuthConsumer>
+        </AuthProvider>
+    );
+    }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import React from 'react';
+import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './Routes'
+
+function App() {
+    return (
+        <BrowserRouter>
+            <Routes />
+        </BrowserRouter>
+    );
+};
+export default App;
+*/
